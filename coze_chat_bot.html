@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Coze chat bot</title>
+  <style>
+    body {
+      background-color: rgb(255, 255, 255);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+  </style>
+</head>
+
+<body>
+
+    <script src="https://sf-cdn.coze.com/obj/unpkg-va/flow-platform/chat-app-sdk/0.1.0-beta.3/libs/oversea/index.js"></script>
+    <script>
+        const sdk = new CozeWebSDK.WebChatClient({
+            config: {
+                bot_id: '7377378924810108935',
+            },
+            componentProps: {
+                title: 'Coze',
+            },
+        });
+    </script>
+
+</body>
+</html>

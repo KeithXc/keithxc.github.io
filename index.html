@@ -14,6 +14,13 @@
       margin: 0;
     }
 
+    iframe {
+        width: 500px;
+        height: 800px;
+        border: 1px solid #ccc;
+        border-radius: 24px; /* 添加圆角 */
+    }
+
   </style>
 </head>
 
@@ -28,17 +35,8 @@
     </div>
 
     <!-- coze AI chat bot -->
-    <script src="https://sf-cdn.coze.com/obj/unpkg-va/flow-platform/chat-app-sdk/0.1.0-beta.3/libs/oversea/index.js"></script>
-    <script>
-        const sdk = new CozeWebSDK.WebChatClient({
-            config: {
-                bot_id: '7377378924810108935',
-            },
-            componentProps: {
-                title: 'Coze',
-            },
-        });
-    </script>
+    <iframe src="./coze_chat_bot.html"></iframe>
+
 
 </body>
 </html>

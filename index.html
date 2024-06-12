@@ -1,6 +1,3 @@
-<!-- <meta http-equiv="refresh" content="10;url=https://adaptable-challenge-f1d.notion.site/Blog-5f14d3b073a14d49b4d287bf5111db04"> -->
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,29 +14,31 @@
       margin: 0;
     }
 
-    h1, p {
-      text-align: center;
-    }
   </style>
 </head>
 
 <body>
 
-    <div id="fullscreen">
+    <!-- URL list -->
+    <div>
         <div><p><h2>我的Notion 公开页面：</h2></p></div>
         <div><a href="https://adaptable-challenge-f1d.notion.site/Blog-5f14d3b073a14d49b4d287bf5111db04">Keith's Notion.</a></div>
         <div><p><h2>AI chat bot：</h2></p></div>
         <div><a href="https://keitherhao.github.io/resource/">Keith's AI Bot.</a></div>
     </div>
 
-    
-  
-
-<!-- <script>
-setTimeout(function(){
-    window.location.href = 'https://adaptable-challenge-f1d.notion.site/Blog-5f14d3b073a14d49b4d287bf5111db04';
-}, 0); // Redirect after 0 seconds
-</script> -->
+    <!-- coze AI chat bot -->
+    <script src="https://sf-cdn.coze.com/obj/unpkg-va/flow-platform/chat-app-sdk/0.1.0-beta.3/libs/oversea/index.js"></script>
+    <script>
+        const sdk = new CozeWebSDK.WebChatClient({
+            config: {
+                bot_id: '7377378924810108935',
+            },
+            componentProps: {
+                title: 'Coze',
+            },
+        });
+    </script>
 
 </body>
 </html>

@@ -1,42 +1,92 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Keith's Blog</title>
-  <style>
-    body {
-      background-color: black;
-      color: white;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      margin: 0;
-    }
-
-    iframe {
-        width: 500px;
-        height: 800px;
-        border: 1px solid #ccc;
-        border-radius: 24px; /* 添加圆角 */
-    }
-
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keith's Blog</title>
+    <style>
+        html, body {
+            height: 100%; /* 确保html和body标签都占满100%的高度 */
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background-color: black;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: Arial, sans-serif;
+            padding: 0;
+            margin: 0;
+            height: 96%; /* body高度为整个页面高度的96% */
+            min-height: 850px; /* body最小高度为850px */
+        }
+        header, footer {
+            text-align: center;
+            padding: 10px;
+            background-color: hsl(0, 0%, 0%);
+            color: #ccc;
+        }
+        .container {
+            display: flex;
+            height: calc(100% - 100px); /* 计算减去header和footer的高度 */
+            width: 96%; /* 容器占总宽度的96% */
+            max-width: 96%; /* 容器最大宽度为总宽度的96% */
+        }
+        .left-pane {
+            flex: 1; /* 占1份 */
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* 垂直居中 */
+            align-items: center; /* 水平居中 */
+            overflow: hidden;
+            position: relative;
+            margin-right: 20px; /* 添加右边距以分隔左右两个窗口 */
+        }
+        .left-pane div {
+            text-align: left; /* 文本左对齐 */
+            width: 80%; /* 固定宽度确保左对齐 */
+        }
+        .right-pane {
+            width: 500px; /* 右侧窗口固定宽度为500px */
+            display: flex;
+            flex-direction: column;
+        }
+        .right-pane iframe {
+            width: 100%; /* 使iframe宽度自适应父容器 */
+            height: 100%; /* 使iframe高度自适应父容器 */
+            border: none;
+            border-radius: 24px; /* 添加圆角 */
+        }
+        a.green-bold {
+            color: green;
+            font-weight: bold;
+        }
+    </style>
 </head>
 
 <body>
-
-    <!-- URL list -->
-    <div>
-        <div><p><h2>我的Notion 公开页面：</h2></p></div>
-        <div><a href="https://adaptable-challenge-f1d.notion.site/Blog-5f14d3b073a14d49b4d287bf5111db04">Keith's Notion.</a></div>
-        <div><p><h2>AI chat bot：</h2></p></div>
-        <div><a href="https://keitherhao.github.io/resource/">Keith's AI Bot.</a></div>
+    <header>
+        <h1>欢迎</h1>
+    </header>
+    <hr style="width: 97%; border-color: #fff;" />
+    <div class="container">
+        <div class="left-pane">
+            <!-- URL list -->
+            <div><h2>我的Notion 公开页面：</h2></div>
+            <div><a href="https://adaptable-challenge-f1d.notion.site/Blog-5f14d3b073a14d49b4d287bf5111db04" class="green-bold">Keith's Notion.</a></div>
+			<div><h2>Github 主页：</h2></div>
+            <div><a href="https://github.com/keitherhao" class="green-bold">Keith's Github.</a></div>
+        </div>
+        <div class="right-pane">
+            <!-- coze AI chat bot -->
+            <iframe src="./coze_chat_bot.html"></iframe>
+        </div>
     </div>
 
-    <!-- coze AI chat bot -->
-    <iframe src="./coze_chat_bot.html"></iframe>
-
-
+    <hr style="width: 97%; border-color: #fff;" />
+    <p>学习中.</p>
 </body>
 </html>

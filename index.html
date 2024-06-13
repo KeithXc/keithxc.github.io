@@ -31,6 +31,7 @@
         }
         .container {
             display: flex;
+            flex-direction: row;
             height: calc(100% - 100px); /* 计算减去header和footer的高度 */
             width: 96%; /* 容器占总宽度的96% */
             max-width: 96%; /* 容器最大宽度为总宽度的96% */
@@ -68,12 +69,34 @@
             color: green;
             font-weight: bold;
         }
-		.time-display {
-            position: absolute;
+        .time-display {
+            position: fixed; /* 固定在屏幕某位置 */
             top: 10px;
             right: 10px;
             font-size: 16px;
             color: white;
+            z-index: 1000; /* 确保时间显示在最上层 */
+        }
+
+        /* 适用于手机和平板的媒体查询 */
+        @media (max-width: 768px) {
+            body {
+                height: auto; /* 不限制高度 */
+                min-height: auto; /* 不限制最小高度 */
+            }
+            .container {
+                flex-direction: column; /* 改为纵向排列 */
+                height: auto; /* 不限制高度 */
+            }
+            .middle-pane, .right-pane {
+                width: 100%; /* 全宽 */
+                margin-right: 0; /* 无右边距 */
+                margin-bottom: 20px; /* 添加底边距以分隔窗口 */
+                height: 800px; /* 固定高度为800px */
+            }
+            .middle-pane:last-child, .right-pane:last-child {
+                margin-bottom: 0; /* 最后一个pane不需要底边距 */
+            }
         }
     </style>
 </head>
@@ -81,7 +104,6 @@
 <body>
     <header>
         <h1>欢迎</h1>
-        <div class="time-display" id="timeDisplay"></div>
     </header>
     <hr style="width: 97%; border-color: #fff;" />
     <div class="container">
@@ -91,6 +113,7 @@
             <div><a href="https://adaptable-challenge-f1d.notion.site/Blog-5f14d3b073a14d49b4d287bf5111db04" class="green-bold">Keith's Notion.</a></div>
             <div><h2>Github 主页：</h2></div>
             <div><a href="https://github.com/keitherhao" class="green-bold">Keith's Github.</a></div>
+			<br>
         </div>
         <div class="middle-pane">
             <!-- Embedded webpage -->
@@ -104,6 +127,9 @@
 
     <hr style="width: 97%; border-color: #fff;" />
     <p>学习中.</p>
+
+    <!-- Time Display -->
+    <div id="timeDisplay" class="time-display"></div>
 
     <script>
         function updateTime() {

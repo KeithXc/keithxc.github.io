@@ -68,12 +68,20 @@
             color: green;
             font-weight: bold;
         }
+		.time-display {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 16px;
+            color: white;
+        }
     </style>
 </head>
 
 <body>
     <header>
         <h1>欢迎</h1>
+        <div class="time-display" id="timeDisplay"></div>
     </header>
     <hr style="width: 97%; border-color: #fff;" />
     <div class="container">
@@ -96,5 +104,26 @@
 
     <hr style="width: 97%; border-color: #fff;" />
     <p>学习中.</p>
+
+    <script>
+        function updateTime() {
+            const days = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
+            const months = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'];
+            
+            const now = new Date();
+            const dayOfWeek = days[now.getDay()];
+            const month = months[now.getMonth()];
+            const day = now.getDate();
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const seconds = now.getSeconds().toString().padStart(2, '0');
+            
+            const timeString = `${dayOfWeek} ${month}${day}日 ${hours}:${minutes}:${seconds}`;
+            document.getElementById('timeDisplay').innerText = timeString;
+        }
+        
+        setInterval(updateTime, 1000);
+        updateTime(); // Initial call to display time immediately
+    </script>
 </body>
 </html>

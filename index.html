@@ -43,18 +43,22 @@
             align-items: center; /* 水平居中 */
             overflow: hidden;
             position: relative;
-            margin-right: 20px; /* 添加右边距以分隔左右两个窗口 */
+            margin-right: 20px; /* 添加右边距以分隔窗口 */
         }
         .left-pane div {
             text-align: left; /* 文本左对齐 */
             width: 80%; /* 固定宽度确保左对齐 */
         }
-        .right-pane {
-            width: 500px; /* 右侧窗口固定宽度为500px */
+        .middle-pane, .right-pane {
+            width: 500px; /* 固定宽度为500px */
             display: flex;
             flex-direction: column;
+            margin-right: 20px; /* 添加右边距以分隔窗口 */
         }
-        .right-pane iframe {
+        .middle-pane:last-child, .right-pane:last-child {
+            margin-right: 0; /* 最后一个pane不需要右边距 */
+        }
+        .middle-pane iframe, .right-pane iframe {
             width: 100%; /* 使iframe宽度自适应父容器 */
             height: 100%; /* 使iframe高度自适应父容器 */
             border: none;
@@ -77,8 +81,12 @@
             <!-- URL list -->
             <div><h2>Notion 公开页面：</h2></div>
             <div><a href="https://adaptable-challenge-f1d.notion.site/Blog-5f14d3b073a14d49b4d287bf5111db04" class="green-bold">Keith's Notion.</a></div>
-			<div><h2>Github 主页：</h2></div>
+            <div><h2>Github 主页：</h2></div>
             <div><a href="https://github.com/keitherhao" class="green-bold">Keith's Github.</a></div>
+        </div>
+        <div class="middle-pane">
+            <!-- Embedded webpage -->
+            <iframe src="https://udify.app/chat/7ZJPPDLZZ0F7AEGe"></iframe>
         </div>
         <div class="right-pane">
             <!-- coze AI chat bot -->

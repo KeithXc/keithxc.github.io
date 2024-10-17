@@ -1,167 +1,24 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-	<meta name="msvalidate.01" content="3CB7DF046BE5EF4DFBEC3E6B3EF96CB3" />
+    <meta name="msvalidate.01" content="3CB7DF046BE5EF4DFBEC3E6B3EF96CB3" />
 	<meta name="google-site-verification" content="IuaOGol3lfgIq-uHWrhfslKQOp09NKkkjckzNI1vvVA" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Keith's Blog</title>
-    <style>
-        html, body {
-            height: 100%; /* 确保html和body标签都占满100%的高度 */
-            margin: 0;
-            padding: 0;
-        }
-        body {
-            background-color: black;
-            color: white;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            font-family: Arial, sans-serif;
-            padding: 0;
-            margin: 0;
-            height: 96%; /* body高度为整个页面高度的96% */
-            min-height: 850px; /* body最小高度为850px */
-        }
-        header, footer {
-            text-align: center;
-            padding: 10px;
-            background-color: hsl(0, 0%, 0%);
-            color: #ccc;
-        }
-        .container {
-            display: flex;
-            flex-direction: row;
-            height: calc(100% - 100px); /* 计算减去header和footer的高度 */
-            width: 96%; /* 容器占总宽度的96% */
-            max-width: 96%; /* 容器最大宽度为总宽度的96% */
-        }
-        .left-pane {
-            flex: 1; /* 占1份 */
-            display: flex;
-            flex-direction: column;
-            justify-content: center; /* 垂直居中 */
-            align-items: center; /* 水平居中 */
-            overflow: hidden;
-            position: relative;
-            margin-right: 20px; /* 添加右边距以分隔窗口 */
-        }
-        .left-pane div {
-            text-align: left; /* 文本左对齐 */
-            width: 80%; /* 固定宽度确保左对齐 */
-        }
-        .middle-pane, .right-pane {
-            width: 500px; /* 固定宽度为500px */
-            display: flex;
-            flex-direction: column;
-            margin-right: 20px; /* 添加右边距以分隔窗口 */
-        }
-        .middle-pane:last-child, .right-pane:last-child {
-            margin-right: 0; /* 最后一个pane不需要右边距 */
-        }
-        .middle-pane iframe, .right-pane iframe {
-            width: 100%; /* 使iframe宽度自适应父容器 */
-            height: 100%; /* 使iframe高度自适应父容器 */
-            background-color: white;
-            border: none;
-            border-radius: 24px; /* 添加圆角 */
-        }
-        a.green-bold {
-            color: green;
-            font-weight: bold;
-        }
-        .time-display {
-            position: fixed; /* 固定在屏幕某位置 */
-            top: 10px;
-            right: 10px;
-            font-size: 16px;
-            color: white;
-            z-index: 1000; /* 确保时间显示在最上层 */
-        }
-
-        /* 适用于手机和平板的媒体查询 */
-        @media (max-width: 768px) {
-            body {
-                height: auto; /* 不限制高度 */
-                min-height: auto; /* 不限制最小高度 */
-            }
-            .container {
-                flex-direction: column; /* 改为纵向排列 */
-                height: auto; /* 不限制高度 */
-            }
-            .middle-pane, .right-pane {
-                width: 100%; /* 全宽 */
-                margin-right: 0; /* 无右边距 */
-                margin-bottom: 20px; /* 添加底边距以分隔窗口 */
-                height: 800px; /* 固定高度为800px */
-            }
-            .middle-pane:last-child, .right-pane:last-child {
-                margin-bottom: 0; /* 最后一个pane不需要底边距 */
-            }
-        }
-    </style>
+    <title>Markdown Renderer with Sidebar</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked@4.0.13/marked.min.js"></script>
 </head>
 
 <body>
-    <header>
-        <h1>Keith's Blog</h1>
-    </header>
-    <hr style="width: 97%; border-color: #fff;" />
-    <div class="container">
-        <div class="left-pane">
-            <!-- URL list -->
-            <div><h2>Notion 公开页面：</h2></div>
-            <div><a href="https://adaptable-challenge-f1d.notion.site/Blog-5f14d3b073a14d49b4d287bf5111db04" class="green-bold">Keith's Notion.</a></div>
-            <div><h2>Github:</h2></div>
-            <div><a href="https://github.com/keitherhao" class="green-bold">Keith's Github.</a></div>
-            <div><a href="https://github.com/keitherhao/zorin_china" class="green-bold">Zorin OS Install Guide.</a></div>
-            <div><a href="https://github.com/keitherhao/my_env_init" class="green-bold">Linux Env init shell script.</a></div>
-            <div><a href="https://github.com/keitherhao/unix-v6" class="green-bold">unix-v6.</a></div>
-            <div><a href="https://github.com/keitherhao/VIDEO" class="green-bold">linux上使用v4l2取流、等.</a></div>
-            <div><h2>Other URL:</h2></div>
-            <div><a href="https://lumalabs.ai/dream-machine/creations"class="green-bold">Luma ai video creat.</a></div>
-            <div><a href="https://you.com/"class="green-bold">You ai chat.</a></div>
-            <div><a href="https://poe.com/"class="green-bold">Poe ai chat.</a></div>
-            <div><a href="https://chatgpt.com/"class="green-bold">Open ai chat.</a></div>
-            <br>
-        </div>
-        <div class="middle-pane">
-            <!-- coze AI chat bot -->
-            <iframe src="./coze_chat_bot.html"></iframe>
-        </div>
-        <div class="right-pane">
-            <!-- dify AI chat bot -->
-            <iframe src="https://udify.app/chat/7ZJPPDLZZ0F7AEGe"></iframe>
-        </div>
+    <div class="sidebar" id="sidebar">
+        <div id="fileTree"></div>
     </div>
-
-    <hr style="width: 97%; border-color: #fff;" />
-    <p>学习中.</p>
-
-    <!-- Time Display -->
-    <div id="timeDisplay" class="time-display"></div>
-
-    <script>
-        function updateTime() {
-            const days = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
-            const months = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'];
-            
-            const now = new Date();
-            const dayOfWeek = days[now.getDay()];
-            const month = months[now.getMonth()];
-            const day = now.getDate();
-            const hours = now.getHours().toString().padStart(2, '0');
-            const minutes = now.getMinutes().toString().padStart(2, '0');
-            const seconds = now.getSeconds().toString().padStart(2, '0');
-            
-            const timeString = `${dayOfWeek} ${month}${day}日 ${hours}:${minutes}:${seconds}`;
-            document.getElementById('timeDisplay').innerText = timeString;
-        }
-        
-        setInterval(updateTime, 1000);
-        updateTime(); // Initial call to display time immediately
-    </script>
+    <button id="toggleButton" onclick="toggleSidebar()">目录</button>
+    <div class="content" id="content"></div>
+    <div id="timestamp"></div>
+    <script src="script.js"></script>
 </body>
+
 </html>

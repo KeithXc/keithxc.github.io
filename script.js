@@ -34,7 +34,7 @@ async function loadFileTree() {
     }
   );
   const data = await response.json();
-  const tree = data.tree.filter((item) => item.path.startsWith("md_root/"));
+  const tree = data.tree.filter((item) => item.path.startsWith("md_root/") && item.path.endsWith(".md"));
   const fileTree = document.getElementById("fileTree");
   tree.forEach((item) => {
     const div = document.createElement("div");

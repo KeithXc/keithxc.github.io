@@ -1,7 +1,7 @@
 async function loadMarkdown(filePath) {
     // 获取文件路径的目录部分
     const directoryPath = filePath.substring(0, filePath.lastIndexOf('/'));
-    // console.log('directoryPath:', directoryPath);
+    console.log('directoryPath:', directoryPath);
     const response = await fetch(filePath);
     const text = await response.text();
 
@@ -9,7 +9,7 @@ async function loadMarkdown(filePath) {
     const updatedText = text.replace(/<img\s+src="([^"]+)"([^>]*)>/g, (match, src, rest) => {
         // 构建新的URL
         const newSrc = `${directoryPath}/${src.replace('./', '')}`;
-        // console.log('newSrc:', newSrc);
+        console.log('newSrc:', newSrc);
         return `<img src="${newSrc}"${rest}></br>`;
     });
 

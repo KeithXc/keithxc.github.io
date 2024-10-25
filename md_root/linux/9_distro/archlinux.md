@@ -14,7 +14,7 @@ make u
 
 - lunch
 
-	<img src="./archlinux.assets/image-20240819163010825.png" alt="image-20240819163010825" style="zoom:80%;float:left" />
+	<img align="left" src="./archlinux.assets/image-20240819163010825.png" alt="image-20240819163010825" style="zoom:80%;" />
 
 - 编辑 `/etc/pacman.d/mirrorlist`，在文件的最顶端添加
 

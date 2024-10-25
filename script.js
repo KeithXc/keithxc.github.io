@@ -6,11 +6,11 @@ async function loadMarkdown(filePath) {
     const text = await response.text();
 
     // 使用正则表达式替换图片路径
-    const updatedText = text.replace(/<img\s+src="([^"]+)"([^>]*)>/g, (match, src, rest) => {
+    const updatedText = text.replace(/<img\s+([^>]*?)src="([^"]+)"([^>]*)>/g, (match, beforeSrc, src, afterSrc) => {
         // 构建新的URL
         const newSrc = `${directoryPath}/${src.replace('./', '')}`;
-        console.log('newSrc:', newSrc);
-        return `<img src="${newSrc}"${rest}></br>`;
+        console.log('newSrc:', newSrc); // 打印新路径
+        return `<img ${beforeSrc}src="${newSrc}">`;
     });
 
     document.getElementById("content").innerHTML = marked.parse(updatedText);

@@ -10,7 +10,7 @@ async function loadMarkdown(filePath) {
         // 构建新的URL
         const newSrc = `${directoryPath}/${src.replace('./', '')}`;
         console.log('newSrc:', newSrc); // 打印新路径
-        return `<img ${beforeSrc}src="${newSrc}">`;
+        return `<img src="${newSrc}">`;
     });
 
     document.getElementById("content").innerHTML = marked.parse(updatedText);

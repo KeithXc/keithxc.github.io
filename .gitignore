@@ -1,2 +1,7 @@
 *tmp.*
 *.out
+
+*/node_modules/*
+*test/*
+
+.vscode

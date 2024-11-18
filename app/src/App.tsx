@@ -104,22 +104,18 @@ function App() {
       let content = await response.text();
 
       // Transform image paths in the markdown content
-      // content = content.replace(
-      //   /!\[([^\]]*)\]\((\.\/[^)]+)\)/g,
-      //   (match, alt, path) => {
-      //     const transformedPath = transformImageSrc(path);
-      //     return `![${alt}](${transformedPath})`;
-      //   }
-      // );
-      console.log('Run here');
-      content = content.replace(/<img\s+([^>]*?)src="([^"]+)"([^>]*)>/g, (match, beforeSrc, src, afterSrc) => {
-        // 构建新的URL
-        const directoryPath = filePath.substring(0, filePath.lastIndexOf('/'));
-        console.log('directoryPath:', directoryPath);
-        const newSrc = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${directoryPath}/${src.replace('./', '')}`;
-        console.log('newSrc:', newSrc); // 打印新路径
-        return `<img src="${newSrc}">`;
-      });
+      content = content.replace(
+        /!\[([^\]]*)\]\((\.\/[^)]+)\)|<img[^>]*src=["'](\.\/[^"']+)["'][^>]*>/g,
+        (match, alt, markdownPath, htmlPath) => {
+          const path = markdownPath || htmlPath;
+          const transformedPath = transformImageSrc(path);
+          if (markdownPath) {
+            return `![${alt}](${transformedPath})`;
+          } else {
+            return match.replace(path, transformedPath);
+          }
+        }
+      );
 
       setMarkdown(content);
       setError(null);
@@ -160,9 +156,22 @@ function App() {
 
     // Replace the assets folder path with the correct one
     const assetsPath = `${currentFilePath}.assets/`;
+    console.log('assetsPath:', assetsPath);
     const imageName = src.split('/').pop();
+    const newSrc = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${assetsPath}${imageName}`;
+    console.log('newSrc:', newSrc);
 
-    return `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${assetsPath}${imageName}`;
+    console.log('Run here');
+    // content = content.replace(/<img\s+([^>]*?)src="([^"]+)"([^>]*)>/g, (match, beforeSrc, src, afterSrc) => {
+    //   // 构建新的URL
+    // const directoryPath = filePath.substring(0, filePath.lastIndexOf('/'));
+    // console.log('directoryPath:', directoryPath);
+    // const newSrc = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${directoryPath}/${src.replace('./', '')}`;
+    // console.log('newSrc:', newSrc); // 打印新路径
+    //   return `<img src="${newSrc}">`;
+    // });
+
+    return newSrc;
   };
 
   const renderFileTree = (items: FileInfo[], level = 0) => {
@@ -192,8 +201,8 @@ function App() {
           <button
             onClick={() => setSelectedFile(item.path)}
             className={`w-full text-left px-2 py-1.5 rounded-lg flex items-center space-x-2 ${selectedFile === item.path
-                ? 'bg-blue-900 text-blue-200'
-                : 'text-gray-300 hover:bg-gray-800'
+              ? 'bg-blue-900 text-blue-200'
+              : 'text-gray-300 hover:bg-gray-800'
               }`}
           >
             <FileText className="w-4 h-4" />

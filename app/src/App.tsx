@@ -48,7 +48,7 @@ function App() {
         `https://api.github.com/repos/${owner}/${repo}/git/trees/${branch}?recursive=1`
       );
       const data = await response.json();
-      
+
       const fileTree: FileInfo[] = [];
       const paths = new Map<string, FileInfo>();
 
@@ -57,10 +57,10 @@ function App() {
         .forEach((item: any) => {
           const parts = item.path.split('/');
           let currentPath = '';
-          
+
           parts.forEach((part: string, index: number) => {
             const fullPath = parts.slice(0, index + 1).join('/');
-            
+
             if (!paths.has(fullPath)) {
               const newItem: FileInfo = {
                 name: part,
@@ -68,9 +68,9 @@ function App() {
                 type: index === parts.length - 1 ? 'file' : 'directory',
                 children: index === parts.length - 1 ? undefined : []
               };
-              
+
               paths.set(fullPath, newItem);
-              
+
               if (index === 0) {
                 if (currentPath === '') {
                   fileTree.push(newItem);
@@ -102,16 +102,25 @@ function App() {
         `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${filePath}`
       );
       let content = await response.text();
-      
+
       // Transform image paths in the markdown content
-      content = content.replace(
-        /!\[([^\]]*)\]\((\.\/[^)]+)\)/g,
-        (match, alt, path) => {
-          const transformedPath = transformImageSrc(path);
-          return `![${alt}](${transformedPath})`;
-        }
-      );
-      
+      // content = content.replace(
+      //   /!\[([^\]]*)\]\((\.\/[^)]+)\)/g,
+      //   (match, alt, path) => {
+      //     const transformedPath = transformImageSrc(path);
+      //     return `![${alt}](${transformedPath})`;
+      //   }
+      // );
+      console.log('Run here');
+      content = content.replace(/<img\s+([^>]*?)src="([^"]+)"([^>]*)>/g, (match, beforeSrc, src, afterSrc) => {
+        // 构建新的URL
+        const directoryPath = filePath.substring(0, filePath.lastIndexOf('/'));
+        console.log('directoryPath:', directoryPath);
+        const newSrc = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${directoryPath}/${src.replace('./', '')}`;
+        console.log('newSrc:', newSrc); // 打印新路径
+        return `<img src="${newSrc}">`;
+      });
+
       setMarkdown(content);
       setError(null);
     } catch (err) {
@@ -135,7 +144,7 @@ function App() {
 
   const transformImageSrc = (src: string) => {
     if (!selectedFile) return src;
-    
+
     // If it's already a full URL, return as is
     if (src.startsWith('http://') || src.startsWith('https://')) {
       return src;
@@ -148,11 +157,11 @@ function App() {
 
     // Get the current markdown file path without extension
     const currentFilePath = selectedFile.replace(/\.md$/, '');
-    
+
     // Replace the assets folder path with the correct one
     const assetsPath = `${currentFilePath}.assets/`;
     const imageName = src.split('/').pop();
-    
+
     return `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${assetsPath}${imageName}`;
   };
 
@@ -182,11 +191,10 @@ function App() {
         ) : (
           <button
             onClick={() => setSelectedFile(item.path)}
-            className={`w-full text-left px-2 py-1.5 rounded-lg flex items-center space-x-2 ${
-              selectedFile === item.path
+            className={`w-full text-left px-2 py-1.5 rounded-lg flex items-center space-x-2 ${selectedFile === item.path
                 ? 'bg-blue-900 text-blue-200'
                 : 'text-gray-300 hover:bg-gray-800'
-            }`}
+              }`}
           >
             <FileText className="w-4 h-4" />
             <span className="text-sm truncate">{item.name}</span>
@@ -227,9 +235,8 @@ function App() {
 
       <div className="flex">
         <aside
-          className={`${
-            sidebarOpen ? 'translate-x-0' : '-translate-x-full'
-          } fixed lg:relative w-72 h-[calc(100vh-57px)] bg-gray-900 border-r border-gray-800 transition-transform duration-200 ease-in-out lg:translate-x-0 z-10 overflow-y-auto`}
+          className={`${sidebarOpen ? 'translate-x-0' : '-translate-x-full'
+            } fixed lg:relative w-72 h-[calc(100vh-57px)] bg-gray-900 border-r border-gray-800 transition-transform duration-200 ease-in-out lg:translate-x-0 z-10 overflow-y-auto`}
         >
           <div className="p-4">
             <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-4">
@@ -252,7 +259,7 @@ function App() {
             </div>
           ) : (
             <article className="prose prose-invert prose-blue max-w-none">
-              <ReactMarkdown 
+              <ReactMarkdown
                 remarkPlugins={[remarkGfm]}
                 components={{
                   img: ({ node, ...props }) => (

@@ -12,6 +12,8 @@
 
 [Keith's Github.](https://github.com/keitherhao)
 
+[Keith's Github.(new)](https://github.com/keitherhao/app/dist/index.html)
+
 [Zorin OS Install Guide.](https://github.com/keitherhao/zorin_china)
 
 [Linux Env init shell script.](https://github.com/keitherhao/my_env_init)
